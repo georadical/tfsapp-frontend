@@ -1,15 +1,30 @@
 "use client";
+
 import { useState, useEffect } from "react";
 
-// Header component with dynamic background and menu
-export default function Header({ menuItems, logo, backgroundImage }) {
+export default function Header({ menuItems, logo }) {
+  const [backgroundImage, setBackgroundImage] = useState(null);
+
+  // Fetch background image from the backend
+  useEffect(() => {
+    async function fetchBackground() {
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/site-config/");
+        if (!res.ok) throw new Error("Failed to fetch background image");
+        const data = await res.json();
+        setBackgroundImage(data.header_background); // Use the URL directly from the backend
+      } catch (error) {
+        console.error("Error fetching background image:", error);
+      }
+    }
+    fetchBackground();
+  }, []);
+
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Detect scrolling to adjust header size
+  // Handle scroll to shrink the header
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -17,10 +32,14 @@ export default function Header({ menuItems, logo, backgroundImage }) {
   return (
     <header
       className={`fixed top-0 left-0 w-full transition-all duration-300 ${
-        isScrolled ? "h-12" : "h-20"
+        isScrolled ? "h-28" : "h-64"
       }`}
       style={{
-        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 255, 0.5), rgba(0, 0, 255, 0.5)), url(${backgroundImage})`,
+        transition: "0.4s ease-in-out",
+        backgroundImage: isScrolled
+        ? `linear-gradient(to bottom, #5470cd, #5470cd)`
+        : `linear-gradient(to bottom, rgba(57, 81, 163, 0.45), rgba(57, 81, 163, 0.45)), url(${backgroundImage})`,
+      backgroundSize: "cover",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -29,7 +48,7 @@ export default function Header({ menuItems, logo, backgroundImage }) {
     >
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-full">
         {/* Logo */}
-        <img src={logo} alt="Logo" className="h-10" />
+        <img src="/tfs-logo.png" alt="Logo" className="h-20 " />
 
         {/* Navigation Menu */}
         <nav className="flex space-x-6">

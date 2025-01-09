@@ -1,13 +1,17 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Hero from "../components/Hero";
+import Services from "../components/Services";
 
 const Header = dynamic(() => import("../components/Header"), { ssr: false });
 
 export default function Home() {
   const menuItems = [
     { label: "Home", href: "#home" },
-    { label: "Services", href: "#services" },
+    { label: "Our Services", href: "#services" },
+    { label: "Our Expertise", href: "#expertise" },
+    { label: "Statements", href: "#statements" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -19,9 +23,10 @@ export default function Home() {
         backgroundImage="/path-to-background.jpg"
       />
       <main className="pt-20">
-        {/* Rest of the page content */}
+        <Hero />
+        <Services />
+        {/* Otras secciones */}
       </main>
     </>
   );
 }
-

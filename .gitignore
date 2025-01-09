@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# VSCode configurations
+.vscode/
+
+# Developing images
+public/*.png
