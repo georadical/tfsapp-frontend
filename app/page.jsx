@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
+import DefaultFeatureList from "../components/DefaultFeatureList";
 
 const Header = dynamic(() => import("../components/Header"), { ssr: false });
 
@@ -25,6 +26,7 @@ export default function Home() {
       <main className="pt-20">
         <Hero />
         <Services />
+        <DefaultFeatureList />
         {/* Otras secciones */}
       </main>
     </>

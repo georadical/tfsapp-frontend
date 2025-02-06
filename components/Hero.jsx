@@ -22,7 +22,7 @@ export default function Hero() {
   if (!heroData) return null; // No renderiza nada hasta que lleguen los datos
 
   return (
-    <section className="w-full bg-gray-light pt-48 pb-12">
+    <section className="w-full bg-white pt-48 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-4">
         {/* Text Content */}
         <div className="flex-1 max-w-2xl w-full lg:max-w-xl">
