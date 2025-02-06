@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,6 +19,10 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: white;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #F5F7FA; /* Mismo color que bg-gray-light */
+}
+
+* {
+  font-family: 'Open Sans', sans-serif;
 }

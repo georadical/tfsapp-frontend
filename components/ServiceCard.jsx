@@ -6,9 +6,9 @@ const ServiceCard = ({
   imageUrl, 
   onLearnMore,
   buttonText = 'Read more →',
-  bgColor = 'bg-gray-900',
-  buttonColor = 'bg-blue-600',
-  buttonHoverColor = 'hover:bg-blue-700',
+  bgColor = 'bg-primary-dark',
+  buttonColor = 'bg-accent',
+  buttonHoverColor = 'hover:bg-accent-light',
 }) => (
   <div className="w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg transition-transform hover:scale-105">
     <div className="relative aspect-[4/3]">
@@ -20,10 +20,10 @@ const ServiceCard = ({
     </div>
     <div className={`${bgColor} p-6`}>
       <h2 className="text-2xl font-bold text-white mb-2">{title}</h2>
-      <p className="text-gray-400 text-sm mb-4">{description}</p>
+      <p className="text-gray-light text-sm mb-4">{description}</p>
       <button
         onClick={onLearnMore}
-        className={`${buttonColor} ${buttonHoverColor} text-white text-sm font-medium py-2 px-4 rounded flex items-center gap-2`}
+        className={`${buttonColor} ${buttonHoverColor} text-white text-sm font-medium py-2 px-4 rounded flex items-center gap-2 transition-colors duration-200`}
       >
         {buttonText}
       </button>

@@ -22,9 +22,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="w-full bg-gray-100 py-12">
+    <section className="w-full bg-gray-light py-12">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">Our Services</h2>
+        <h2 className="text-3xl font-bold text-primary-dark mb-6">Our Services</h2>
         <Carousel>
           {services.map((service, index) => (
             <ServiceCard
@@ -32,6 +32,9 @@ export default function Services() {
               title={service.title}
               description={service.description}
               imageUrl={service.imageUrl}
+              bgColor="bg-primary-dark"
+              buttonColor="bg-accent"
+              buttonHoverColor="hover:bg-accent-light"
             />
           ))}
         </Carousel>
