@@ -13,15 +13,15 @@ const Carousel = ({
   navigation = true,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsPerView, setCardsPerView] = useState(itemsPerView.mobile);
   const [slideWidth, setSlideWidth] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(itemsPerView.mobile);
   const containerRef = useRef(null);
   const totalItems = React.Children.count(children);
 
   useEffect(() => {
     const updateLayout = () => {
       const width = window.innerWidth;
-      // Actualizar cards per view
+      // Update cards per view
       if (width < 768) {
         setCardsPerView(itemsPerView.mobile);
       } else if (width < 1280) {
@@ -30,10 +30,10 @@ const Carousel = ({
         setCardsPerView(itemsPerView.desktop);
       }
       
-      // Actualizar ancho del slide
+      // Update slide width
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth;
-        const gapSize = 24; // 24px de gap
+        const gapSize = 24; // 24px gap
         const availableWidth = containerWidth - (gapSize * (cardsPerView - 1));
         const cardWidth = Math.floor(availableWidth / cardsPerView);
         setSlideWidth(cardWidth);
@@ -46,7 +46,7 @@ const Carousel = ({
   }, [itemsPerView, cardsPerView]);
 
   useEffect(() => {
-    // Reset index cuando cambia el tamaño
+    // Reset index when size changes
     const maxIndex = Math.max(0, totalItems - cardsPerView);
     if (currentIndex > maxIndex) {
       setCurrentIndex(maxIndex);
@@ -77,13 +77,14 @@ const Carousel = ({
 
   return (
     <div className={`w-full relative ${className}`}>
-      <div className="overflow-hidden">
+      <div className="overflow-hidden py-4">
         <div 
           ref={containerRef}
           className={`flex transition-transform duration-500 ease-out`}
           style={{
             transform: getTransform(),
-            gap: '24px'
+            gap: '24px',
+            padding: '8px 4px'
           }}
         >
           {React.Children.map(children, (child) => (
