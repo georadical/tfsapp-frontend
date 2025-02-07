@@ -1,25 +1,56 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Hero() {
   const [heroData, setHeroData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchHero() {
+    const fetchHero = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/hero/");
-        if (!res.ok) throw new Error("Failed to fetch hero data");
+        const res = await fetch("http://127.0.0.1:8000/api/hero/", {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        // Check if the response is JSON
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Server is not responding with JSON. Please check if the Django server is running.");
+        }
+
         const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.detail || "Failed to fetch hero data");
+        }
         setHeroData(data);
       } catch (error) {
         console.error("Error fetching hero data:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
+
     fetchHero();
   }, []);
 
-  if (!heroData) return null; // No renderiza nada hasta que lleguen los datos
+  if (isLoading) return <div className="animate-pulse">Loading...</div>;
+  if (error) return (
+    <div className="text-red-600">
+      <p className="font-bold">Error loading hero section</p>
+      <p className="text-sm">{error}</p>
+      {error.includes("server") && (
+        <p className="text-sm mt-2">
+          Please make sure the Django server is running at http://127.0.0.1:8000
+        </p>
+      )}
+    </div>
+  );
+  if (!heroData) return null;
 
   return (
     <section className="w-full bg-white pt-48 pb-12">

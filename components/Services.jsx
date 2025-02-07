@@ -12,16 +12,27 @@ export default function Services() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/services/');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await fetch('http://127.0.0.1:8000/api/services/', {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        // Check if the response is JSON
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Server is not responding with JSON. Please check if the Django server is running.");
         }
+
         const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.detail || "Failed to fetch services");
+        }
         setServices(data);
-        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching services:', error);
         setError(error.message);
+      } finally {
         setIsLoading(false);
       }
     };
@@ -49,7 +60,12 @@ export default function Services() {
           <h2 className="text-3xl sm:text-4xl font-bold text-primary-dark mb-8 sm:mb-10">Our Services</h2>
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
             <strong className="font-bold">Error: </strong>
-            <span className="block sm:inline">Unable to load services. Please try again later.</span>
+            <span className="block sm:inline">{error}</span>
+            {error.includes("server") && (
+              <p className="text-sm mt-2">
+                Please make sure the Django server is running at http://127.0.0.1:8000
+              </p>
+            )}
           </div>
         </div>
       </section>

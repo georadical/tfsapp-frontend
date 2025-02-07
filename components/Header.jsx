@@ -6,19 +6,34 @@ import Menu from "./Menu";
 export default function Header({ menuItems, logo }) {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch background image from the backend
   useEffect(() => {
-    async function fetchBackground() {
+    const fetchBackground = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/site-config/");
-        if (!res.ok) throw new Error("Failed to fetch background image");
+        const res = await fetch("http://127.0.0.1:8000/api/site-config/", {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        // Check if the response is JSON
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Server is not responding with JSON. Please check if the Django server is running.");
+        }
+
         const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.detail || "Failed to fetch background image");
+        }
         setBackgroundImage(data.header_background);
       } catch (error) {
-        console.error("Error fetching background image:", error);
+        console.error("Error fetching background:", error);
+        setError(error.message);
       }
-    }
+    };
+
     fetchBackground();
   }, []);
 
