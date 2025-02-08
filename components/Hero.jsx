@@ -1,56 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Image from 'next/image';
 
 export default function Hero() {
-  const [heroData, setHeroData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchHero = async () => {
-      try {
-        const res = await fetch("http://127.0.0.1:8000/api/hero/", {
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        // Check if the response is JSON
-        const contentType = res.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new Error("Server is not responding with JSON. Please check if the Django server is running.");
-        }
-
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.detail || "Failed to fetch hero data");
-        }
-        setHeroData(data);
-      } catch (error) {
-        console.error("Error fetching hero data:", error);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchHero();
-  }, []);
-
-  if (isLoading) return <div className="animate-pulse">Loading...</div>;
-  if (error) return (
-    <div className="text-red-600">
-      <p className="font-bold">Error loading hero section</p>
-      <p className="text-sm">{error}</p>
-      {error.includes("server") && (
-        <p className="text-sm mt-2">
-          Please make sure the Django server is running at http://127.0.0.1:8000
-        </p>
-      )}
-    </div>
-  );
-  if (!heroData) return null;
+  // Temporary static data until the backend endpoint is ready
+  const heroData = {
+    title: "Precision Forestry Solutions",
+    subtitle: "Empowering sustainable forest management through advanced technology and expert services. We deliver accurate data and strategic insights to optimize your forestry operations."
+  };
 
   return (
     <section className="w-full bg-white pt-48 pb-12">
@@ -100,18 +58,9 @@ export default function Hero() {
                 </div>
                 {/* Logo 3 - Estilo minimalista */}
                 <div className="flex items-center h-8 sm:h-10">
-                  <svg className="h-full w-auto" viewBox="0 0 90 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="90" height="60" fill="#2A3B4D" fillOpacity="0.8"/>
-                    <path d="M20 40L45 20L70 40" stroke="white" strokeWidth="4" fill="none"/>
-                  </svg>
-                </div>
-                {/* Logo 4 - Estilo moderno */}
-                <div className="flex items-center h-8 sm:h-10">
                   <svg className="h-full w-auto" viewBox="0 0 150 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="150" height="60" fill="#2A3B4D" fillOpacity="0.8"/>
-                    <circle cx="45" cy="30" r="15" fill="white"/>
-                    <circle cx="105" cy="30" r="15" fill="white"/>
-                    <rect x="45" y="25" width="60" height="10" fill="white"/>
+                    <path d="M30 15L75 45L120 15" stroke="white" strokeWidth="4" fill="none"/>
                   </svg>
                 </div>
               </div>
@@ -119,14 +68,13 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Image */}
-        <div className="flex-1 w-full lg:w-auto flex justify-center lg:justify-end self-stretch pl-0 lg:pl-2 mt-8 lg:mt-0">
-          <div className="relative h-full flex items-center w-full">
+        {/* Image Section */}
+        <div className="flex-1 w-full lg:max-w-xl">
+          <div className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-2xl">
             <img
-              src={heroData.image}
-              alt="Hero"
-              className="w-full h-[300px] sm:h-[350px] lg:h-[400px] object-cover object-center rounded-md"
-              style={{ maxWidth: "650px" }}
+              src="http://127.0.0.1:8000/uploads/hero_images/IMG_0381.jpeg"
+              alt="Forest management and technology"
+              className="object-cover w-full h-full transition-transform duration-700 hover:scale-105"
             />
           </div>
         </div>
