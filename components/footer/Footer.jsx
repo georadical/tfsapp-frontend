@@ -73,7 +73,7 @@ const mockData = {
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer id="contact" className={`${styles.footer} scroll-mt-[120px]`}>
       <div className={styles.footerTop}>
         <div className={styles.footerTopLeft}>
           <FooterCTA {...mockData.cta} />

@@ -3,18 +3,60 @@
 import { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
-export default function Menu({ items }) {
+export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-  // Manejar el scroll para cambiar estilos
+  const menuItems = [
+    { label: 'Home', id: 'home' },
+    { label: 'Our Services', id: 'services' },
+    { label: 'Our Expertise', id: 'expertise' },
+    { label: 'Statements', id: 'statements' },
+    { label: 'Contact', id: 'contact' }
+  ];
+
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      
+      const sections = menuItems.map(item => ({
+        id: item.id,
+        element: document.getElementById(item.id)
+      })).filter(section => section.element);
+
+      // Si estamos cerca del final de la página, activar la sección de contacto
+      const nearBottom = window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 50;
+      
+      if (nearBottom) {
+        setActiveSection('contact');
+        return;
+      }
+
+      // Encontrar la sección más cercana al viewport
+      let currentSection = null;
+      let minDistance = Infinity;
+
+      sections.forEach(section => {
+        const rect = section.element.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          currentSection = section;
+        }
+      });
+
+      if (currentSection) {
+        setActiveSection(currentSection.id);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Llamar una vez al inicio
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevenir scroll cuando el menú está abierto
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -26,13 +68,26 @@ export default function Menu({ items }) {
     };
   }, [isOpen]);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="relative z-50">
       {/* Mobile Menu Button */}
       <button 
-        onClick={toggleMenu}
+        onClick={() => setIsOpen(!isOpen)}
         className="lg:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors duration-200"
         aria-label="Toggle menu"
       >
@@ -45,14 +100,16 @@ export default function Menu({ items }) {
 
       {/* Desktop Menu */}
       <nav className="hidden lg:flex items-center space-x-8">
-        {items.map((item, index) => (
-          <a
-            key={index}
-            href={item.href}
-            className="text-white font-medium text-sm tracking-wide hover:text-white/80 transition-colors duration-200 py-2"
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => scrollToSection(item.id)}
+            className={`text-white font-medium text-sm tracking-wide hover:text-white/80 transition-colors duration-200 py-2 ${
+              activeSection === item.id ? 'border-b-2 border-white' : ''
+            }`}
           >
             {item.label}
-          </a>
+          </button>
         ))}
       </nav>
 
@@ -64,7 +121,7 @@ export default function Menu({ items }) {
       >
         {/* Close button in overlay */}
         <button 
-          onClick={toggleMenu}
+          onClick={() => setIsOpen(false)}
           className="absolute top-6 right-6 p-2 text-white hover:bg-white/10 rounded-full transition-colors duration-200"
           aria-label="Close menu"
         >
@@ -74,15 +131,16 @@ export default function Menu({ items }) {
         {/* Mobile Menu Links */}
         <div className="flex flex-col items-center justify-center h-full">
           <div className="space-y-6">
-            {items.map((item, index) => (
-              <div key={index} className="text-center">
-                <a
-                  href={item.href}
-                  className="text-white text-2xl font-medium hover:text-white/80 transition-colors duration-200 block py-2"
-                  onClick={toggleMenu}
+            {menuItems.map((item) => (
+              <div key={item.id} className="text-center">
+                <button
+                  onClick={() => scrollToSection(item.id)}
+                  className={`text-white text-2xl font-medium hover:text-white/80 transition-colors duration-200 block py-2 ${
+                    activeSection === item.id ? 'border-b-2 border-white' : ''
+                  }`}
                 >
                   {item.label}
-                </a>
+                </button>
               </div>
             ))}
           </div>

@@ -1,35 +1,40 @@
 "use client";
 
+import { useEffect } from 'react';
 import dynamic from "next/dynamic";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
 import DefaultFeatureList from "../components/DefaultFeatureList";
+import CapabilityStatement from "../components/CapabilityStatement";
 import ValuesSection from "../components/ValuesSection";
 
 const Header = dynamic(() => import("../components/Header"), { ssr: false });
 
 export default function Home() {
-  const menuItems = [
-    { label: "Home", href: "#home" },
-    { label: "Our Services", href: "#services" },
-    { label: "Our Expertise", href: "#expertise" },
-    { label: "Statements", href: "#statements" },
-    { label: "Contact", href: "#contact" },
-  ];
+  useEffect(() => {
+    // Asegurarse de que la página empiece desde arriba
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
-      <Header
-        menuItems={menuItems}
-        logo="/path-to-logo.png"
-        backgroundImage="/path-to-background.jpg"
-      />
+      <Header />
       <main className="pt-20">
-        <Hero />
-        <Services />
-        <DefaultFeatureList />
+        <div id="home">
+          <Hero />
+        </div>
+        <div id="services">
+          <Services />
+        </div>
+        <div id="expertise">
+          <DefaultFeatureList />
+        </div>
         <div id="statements">
+          <CapabilityStatement />
           <ValuesSection />
+        </div>
+        <div id="contact">
+          {/* Contact section will be added here */}
         </div>
         {/* Otras secciones */}
       </main>
