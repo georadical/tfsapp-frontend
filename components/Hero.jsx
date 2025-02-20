@@ -22,9 +22,9 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 sm:space-x-6 mt-6">
             <a
               href="#services"
-              className="w-full sm:w-auto text-center bg-primary text-white py-3 px-8 text-base lg:text-lg font-medium rounded-md hover:bg-primary-light transition-colors duration-200"
+              className="w-full sm:w-auto text-center bg-primary text-white py-3 px-8 text-base lg:text-lg font-medium rounded-md hover:bg-primary-dark transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(79,70,229,0.3)]"
             >
-              Our Services
+              <strong>Contact Us</strong>
             </a>
             <a
               href="#expertise"
@@ -38,7 +38,7 @@ export default function Hero() {
           <div className="mt-8 lg:mt-12">
             <div className="border-t border-primary-light/20 mb-6 lg:mb-8"></div>
             <div className="space-y-4 lg:space-y-6">
-              <p className="text-base text-gray-dark font-medium tracking-wide">Our clients:</p>
+              <p className="text-lg lg:text-xl font-bold text-gray-dark tracking-wide">Our clients:</p>
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-x-12 lg:gap-y-8">
                 {/* Logo 1 - Estilo tecnología */}
                 <div className="flex items-center h-8 sm:h-10">
