@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from 'next/image';
+import OrganisationSection from './OrganisationSection';
 
 export default function Hero() {
   // Temporary static data until the backend endpoint is ready
@@ -34,38 +35,8 @@ export default function Hero() {
             </a>
           </div>
           
-          {/* Divider and Additional Content Section */}
-          <div className="mt-8 lg:mt-12">
-            <div className="border-t border-primary-light/20 mb-6 lg:mb-8"></div>
-            <div className="space-y-4 lg:space-y-6">
-              <p className="text-lg lg:text-xl font-bold text-gray-dark tracking-wide">Our clients:</p>
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-x-12 lg:gap-y-8">
-                {/* Logo 1 - Estilo tecnología */}
-                <div className="flex items-center h-8 sm:h-10">
-                  <svg className="h-full w-auto" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="180" height="60" fill="#2A3B4D" fillOpacity="0.8"/>
-                    <path d="M40 30L140 30" stroke="white" strokeWidth="4"/>
-                    <circle cx="90" cy="30" r="15" fill="white"/>
-                  </svg>
-                </div>
-                {/* Logo 2 - Estilo corporativo */}
-                <div className="flex items-center h-8 sm:h-10">
-                  <svg className="h-full w-auto" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="120" height="60" fill="#2A3B4D" fillOpacity="0.8"/>
-                    <circle cx="60" cy="30" r="20" stroke="white" strokeWidth="4" fill="none"/>
-                    <rect x="45" y="25" width="30" height="10" fill="white"/>
-                  </svg>
-                </div>
-                {/* Logo 3 - Estilo minimalista */}
-                <div className="flex items-center h-8 sm:h-10">
-                  <svg className="h-full w-auto" viewBox="0 0 150 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="150" height="60" fill="#2A3B4D" fillOpacity="0.8"/>
-                    <path d="M30 15L75 45L120 15" stroke="white" strokeWidth="4" fill="none"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Organisation Section */}
+          <OrganisationSection />
         </div>
 
         {/* Image Section */}
