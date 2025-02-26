@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 
 const Carousel = ({ 
   children,
@@ -11,11 +13,16 @@ const Carousel = ({
   gap = 'gap-4',
   className = '',
   navigation = true,
+  autoPlay = true,
+  autoPlaySpeed = 3000,
+  pauseOnHover = true,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideWidth, setSlideWidth] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(itemsPerView.mobile);
+  const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef(null);
+  const autoPlayRef = useRef(null);
   const totalItems = React.Children.count(children);
 
   useEffect(() => {
@@ -53,6 +60,20 @@ const Carousel = ({
     }
   }, [cardsPerView, totalItems, currentIndex]);
 
+  useEffect(() => {
+    if (autoPlay && !isPaused) {
+      autoPlayRef.current = setInterval(() => {
+        nextSlide();
+      }, autoPlaySpeed);
+
+      return () => {
+        if (autoPlayRef.current) {
+          clearInterval(autoPlayRef.current);
+        }
+      };
+    }
+  }, [autoPlay, isPaused, autoPlaySpeed]);
+
   const nextSlide = () => {
     setCurrentIndex(current => {
       const maxIndex = Math.max(0, totalItems - cardsPerView);
@@ -75,9 +96,25 @@ const Carousel = ({
     return `translateX(-${offset}px)`;
   };
 
+  const handleMouseEnter = () => {
+    if (pauseOnHover) {
+      setIsPaused(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (pauseOnHover) {
+      setIsPaused(false);
+    }
+  };
+
   return (
     <div className={`w-full relative ${className}`}>
-      <div className="overflow-hidden py-4">
+      <div 
+        className="overflow-hidden py-4"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div 
           ref={containerRef}
           className={`flex transition-transform duration-500 ease-out`}
