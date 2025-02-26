@@ -20,7 +20,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: 'Open Sans', sans-serif;
-  background-color: #F5F7FA; /* Mismo color que bg-gray-light */
+  background-color: #E8ECF2; /* Gris un poco más oscuro que el anterior */
 }
 
 * {

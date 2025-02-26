@@ -6,9 +6,9 @@ const ServiceCard = ({
   imageUrl, 
   onLearnMore,
   buttonText = 'Read more →',
-  bgColor = 'bg-primary-dark',
+  bgColor = 'bg-white',
   buttonColor = 'bg-accent',
-  buttonHoverColor = 'hover:bg-accent-light',
+  buttonHoverColor = 'hover:bg-accent-dark',
 }) => (
   <div className="w-full sm:w-[360px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
     <div className="relative w-full h-[300px] sm:h-[350px]">
@@ -31,10 +31,10 @@ const ServiceCard = ({
     <div className={`${bgColor} p-6 sm:p-7 h-[220px] flex flex-col`}>
       <div className="flex-1 min-h-0 flex flex-col">
         <div className="h-[60px]">
-          <h2 className="text-xl sm:text-2xl font-bold text-white line-clamp-2">{title}</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-primary-dark line-clamp-2">{title}</h2>
         </div>
         <div className="h-[84px] mt-3">
-          <p className="text-gray-light text-sm sm:text-base line-clamp-3">{description}</p>
+          <p className="text-gray-dark text-sm sm:text-base line-clamp-3">{description}</p>
         </div>
       </div>
       <div className="mt-6">

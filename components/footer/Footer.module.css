@@ -42,19 +42,20 @@
 .ctaButton {
   display: inline-block;
   padding: 0.8rem 2rem;
-  background-color: #4f46e5;
+  background-color: #FF7E21;
   color: white;
   text-decoration: none;
   border-radius: 6px;
   font-weight: 600;
   transition: all 0.3s ease;
-  border: 1px solid #6366f1;
+  border: 1px solid #FF7E21;
 }
 
 .ctaButton:hover {
-  background-color: #4338ca;
+  background-color: #FB923C;
+  border-color: #FB923C;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 126, 33, 0.3);
 }
 
 /* Offices Styles */

@@ -75,7 +75,7 @@ const CapabilityStatement = () => {
               <div className="pt-4">
                 <a 
                   href="/contact" 
-                  className="inline-block px-8 py-3 text-center text-white bg-primary hover:bg-primary-dark rounded-md transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(79,70,229,0.3)]"
+                  className="inline-block px-8 py-3 text-center text-white bg-accent hover:bg-accent-dark rounded-md transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,126,33,0.3)]"
                 >
                   <strong>Contact Us</strong>
                 </a>

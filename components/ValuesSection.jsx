@@ -42,7 +42,7 @@ const ValuesSection = () => {
 
   if (isLoading) {
     return (
-      <section className="w-full bg-gray-50 py-16 sm:py-20">
+      <section className="w-full bg-gray-100 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <div className="animate-pulse h-8 bg-gray-200 rounded w-48 mx-auto mb-4"></div>
@@ -66,7 +66,7 @@ const ValuesSection = () => {
 
   if (error) {
     return (
-      <section className="w-full bg-gray-50 py-16 sm:py-20">
+      <section className="w-full bg-gray-100 py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center text-red-600">
             <h2 className="text-xl font-semibold mb-2">Error loading values</h2>
@@ -83,7 +83,7 @@ const ValuesSection = () => {
   }
 
   return (
-    <section className="w-full bg-gray-50 py-16 sm:py-20">
+    <section className="w-full bg-gray-100 py-16 sm:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import OrganisationCarousel from './OrganisationCarousel';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 
@@ -15,7 +15,7 @@ export default function OrganisationSection() {
     const fetchData = async () => {
       try {
         // Fetch section title
-        const sectionResponse = await fetch(`${API_BASE_URL}/cms/organisation-section/`);
+        const sectionResponse = await fetch(`${API_BASE_URL}/api/organisation-section/`);
         
         if (!sectionResponse.ok) {
           throw new Error(`Failed to fetch section data: ${sectionResponse.status}`);
@@ -24,7 +24,7 @@ export default function OrganisationSection() {
         setSectionData(sectionResult[0]);
 
         // Fetch organisations
-        const organisationsResponse = await fetch(`${API_BASE_URL}/cms/organisation-logos/`);
+        const organisationsResponse = await fetch(`${API_BASE_URL}/api/organisation-logos/`);
         
         if (!organisationsResponse.ok) {
           throw new Error(`Failed to fetch organisation data: ${organisationsResponse.status}`);
@@ -71,28 +71,7 @@ export default function OrganisationSection() {
             {sectionData.title}
           </p>
         )}
-        <div className="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-x-12 lg:gap-y-8">
-          {organisations.map((org) => (
-            <a
-              key={org.id}
-              href={org.organisation_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center h-12 sm:h-16 transition-transform duration-300 hover:scale-105"
-            >
-              <div className="relative h-full w-[160px]">
-                <Image
-                  src={org.organisation_logo}
-                  alt={org.organisation_name}
-                  fill
-                  sizes="160px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </a>
-          ))}
-        </div>
+        <OrganisationCarousel organisations={organisations} />
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 sm:space-x-6 mt-6">
             <a
               href="#services"
-              className="w-full sm:w-auto text-center bg-primary text-white py-3 px-8 text-base lg:text-lg font-medium rounded-md hover:bg-primary-dark transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(79,70,229,0.3)]"
+              className="w-full sm:w-auto text-center bg-accent text-white py-3 px-8 text-base lg:text-lg font-medium rounded-md hover:bg-accent-dark transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,126,33,0.3)]"
             >
               <strong>Contact Us</strong>
             </a>
