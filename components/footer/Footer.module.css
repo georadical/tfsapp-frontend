@@ -58,6 +58,24 @@
   box-shadow: 0 4px 12px rgba(255, 126, 33, 0.3);
 }
 
+/* Loading and Error States */
+.loadingState,
+.errorState {
+  padding: 1.5rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.loadingState {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #a5b4fc;
+}
+
+.errorState {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}
+
 /* Offices Styles */
 .footerOffices {
   max-width: 500px;
