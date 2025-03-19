@@ -3,8 +3,11 @@
 import React from "react";
 import Image from 'next/image';
 import OrganisationSection from './OrganisationSection';
+import { useContactModal } from '@/context/ContactModalContext';
 
 export default function Hero() {
+  const { openModal } = useContactModal();
+
   // Temporary static data until the backend endpoint is ready
   const heroData = {
     title: "Precision Forestry Solutions",
@@ -21,12 +24,12 @@ export default function Hero() {
           </h1>
           <p className="text-gray-dark mb-6 text-sm sm:text-base" style={{ fontSize: "16px" }}>{heroData.subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-4 sm:space-x-6 mt-6">
-            <a
-              href="#services"
+            <button
+              onClick={openModal}
               className="w-full sm:w-auto text-center bg-accent text-white py-3 px-8 text-base lg:text-lg font-medium rounded-md hover:bg-accent-dark transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,126,33,0.3)]"
             >
               <strong>Contact Us</strong>
-            </a>
+            </button>
             <a
               href="#expertise"
               className="w-full sm:w-auto text-center bg-gray-light text-gray-dark border border-gray-dark py-3 px-8 text-base lg:text-lg font-medium rounded-md hover:bg-gray-dark hover:text-white transition-colors duration-200"

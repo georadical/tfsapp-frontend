@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
+import { useContactModal } from '@/context/ContactModalContext';
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const { openModal } = useContactModal();
 
   const menuItems = [
     { label: 'Home', id: 'home' },
@@ -69,17 +71,24 @@ export default function Menu() {
   }, [isOpen]);
 
   const scrollToSection = (id) => {
+    setIsOpen(false);
+    
+    if (id === 'contact') {
+      openModal();
+      return;
+    }
+    
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
+      // Scroll to section
+      const headerHeight = isScrolled ? 96 : 192; // 24rem or 48rem in pixels
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight;
+      
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: "smooth"
       });
-      setIsOpen(false);
     }
   };
 

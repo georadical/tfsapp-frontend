@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useContactModal } from "@/context/ContactModalContext";
 
 const CapabilityStatement = () => {
   const [capabilityData, setCapabilityData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { openModal } = useContactModal();
 
   useEffect(() => {
     const fetchCapabilityStatement = async () => {
@@ -73,12 +75,12 @@ const CapabilityStatement = () => {
                 {capabilityData.description}
               </p>
               <div className="pt-4">
-                <a 
-                  href="/contact" 
+                <button 
+                  onClick={openModal}
                   className="inline-block px-8 py-3 text-center text-white bg-accent hover:bg-accent-dark rounded-md transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(255,126,33,0.3)]"
                 >
                   <strong>Contact Us</strong>
-                </a>
+                </button>
               </div>
             </div>
           </div>

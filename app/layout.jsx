@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "@/components/footer/Footer";
+import { ContactModalProvider } from "@/context/ContactModalContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,8 +40,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <Footer />
+        <ContactModalProvider>
+          {children}
+          <Footer />
+        </ContactModalProvider>
       </body>
     </html>
   );
