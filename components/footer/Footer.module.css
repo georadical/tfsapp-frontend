@@ -58,6 +58,34 @@
   box-shadow: 0 4px 12px rgba(255, 126, 33, 0.3);
 }
 
+/* Contact Information Styles */
+.contactInfo {
+  margin-top: 1.5rem;
+  padding: 0.5rem 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.contactName {
+  display: block;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.contactPosition {
+  font-size: 0.95rem;
+  color: #6366f1;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.contactPhone {
+  font-size: 0.95rem;
+  color: #a5b4fc;
+  font-weight: 400;
+}
+
 /* Loading and Error States */
 .loadingState,
 .errorState {
@@ -227,6 +255,20 @@
   .footerCTA,
   .footerOffices {
     max-width: 100%;
+  }
+
+  .contactInfo {
+    margin-top: 1.25rem;
+    padding: 0.25rem 0;
+  }
+
+  .contactName {
+    font-size: 1rem;
+  }
+
+  .contactPosition, 
+  .contactPhone {
+    font-size: 0.9rem;
   }
 
   .socialLink {
