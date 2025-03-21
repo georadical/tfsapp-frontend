@@ -73,11 +73,6 @@ export default function Menu() {
   const scrollToSection = (id) => {
     setIsOpen(false);
     
-    if (id === 'contact') {
-      openModal();
-      return;
-    }
-    
     const element = document.getElementById(id);
     if (element) {
       // Scroll to section
