@@ -3,11 +3,14 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "./GenericCarousel";
 import ServiceCard from "./ServiceCard";
+import ServiceModal from "./services/ServiceModal";
 
 export default function Services() {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -39,6 +42,17 @@ export default function Services() {
 
     fetchServices();
   }, []);
+
+  // Handler for opening the modal with a specific service
+  const handleReadMore = (service) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
+
+  // Handler for closing the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   if (isLoading) {
     return (
@@ -85,7 +99,7 @@ export default function Services() {
                     title={service.title}
                     description={service.description}
                     imageUrl={service.image}
-                    onLearnMore={() => console.log(`Learn more about ${service.title}`)}
+                    onLearnMore={() => handleReadMore(service)}
                   />
                 </div>
               ))}
@@ -96,6 +110,13 @@ export default function Services() {
             <p className="text-lg">No services available at the moment.</p>
           </div>
         )}
+
+        {/* Service Modal */}
+        <ServiceModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          service={selectedService}
+        />
       </div>
     </section>
   );
