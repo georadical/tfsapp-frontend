@@ -23,6 +23,18 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
   // Ref for modal content to handle click outside
   const modalRef = useRef(null);
   
+  // Log the received service object for debugging
+  useEffect(() => {
+    if (service && isOpen) {
+      console.log("ServiceModal received service:", service);
+      console.log("Extended fields available:", {
+        hasModalSubtitle: Boolean(service.modal_subtitle),
+        hasModalContent: Boolean(service.modal_content),
+        hasModalImage: Boolean(service.modal_image)
+      });
+    }
+  }, [service, isOpen]);
+  
   // Handle click outside to close modal
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -81,6 +93,10 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
   // Split description into two lines
   const [descriptionLine1, descriptionLine2] = splitDescriptionInTwoLines(service.description);
 
+  // Determine modal image - use modal_image if available, fallback to regular image
+  // Explicitly check for existence to avoid false negatives with empty strings
+  const modalImage = service.modal_image || service.image || "/api/placeholder/900/400";
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 overflow-y-auto">
       <div 
@@ -111,7 +127,7 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
           <div className="mb-6">
             <div className="w-full h-[280px] overflow-hidden rounded-lg relative">
               <img 
-                src={service.modal_image || service.image || "/api/placeholder/900/400"} 
+                src={modalImage}
                 alt={service.title}
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ borderRadius: '0.5rem' }}
@@ -130,16 +146,18 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
           )}
           
           {/* Bottom section - Extended Content */}
-          <div className="prose prose-sm max-w-none text-[#303030] text-sm leading-relaxed">
-            {/* If modal_content is HTML, render it safely; otherwise, render as plain text with paragraph breaks */}
-            {service.modal_content && typeof service.modal_content === 'string' && (
-              service.modal_content.includes('<') && service.modal_content.includes('>') ? 
-              <div dangerouslySetInnerHTML={{ __html: service.modal_content }} /> : 
-              service.modal_content.split('\n').map((paragraph, idx) => (
-                paragraph.trim() ? <p key={idx} className="mb-2">{paragraph}</p> : null
-              ))
-            )}
-          </div>
+          {service.modal_content && (
+            <div className="prose prose-sm max-w-none text-[#303030] text-sm leading-relaxed">
+              {/* Conditionally render content based on whether it's HTML or plain text */}
+              {service.modal_content.includes('<') && service.modal_content.includes('>') ? (
+                <div dangerouslySetInnerHTML={{ __html: service.modal_content }} /> 
+              ) : (
+                service.modal_content.split('\n').map((paragraph, idx) => (
+                  paragraph.trim() ? <p key={idx} className="mb-2">{paragraph}</p> : null
+                ))
+              )}
+            </div>
+          )}
           
           {/* Action button */}
           <div className="mt-5 flex justify-end">

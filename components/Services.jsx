@@ -31,6 +31,10 @@ export default function Services() {
         if (!response.ok) {
           throw new Error(data.detail || "Failed to fetch services");
         }
+        
+        // Log the fetched services to verify all have extended fields
+        console.log("Fetched services:", data);
+        
         setServices(data);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -45,7 +49,11 @@ export default function Services() {
 
   // Handler for opening the modal with a specific service
   const handleReadMore = (service) => {
-    setSelectedService(service);
+    // Log the selected service to verify it has all the expected fields
+    console.log("Selected service:", service);
+    
+    // Store a complete copy of the service object to avoid reference issues
+    setSelectedService({...service});
     setIsModalOpen(true);
   };
 
