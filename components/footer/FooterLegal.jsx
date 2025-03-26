@@ -2,19 +2,26 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './Footer.module.css';
+import LegalModal from '../legal/LegalModal';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 
 const FooterLegal = () => {
   const [legalData, setLegalData] = useState({
     company_disclaimer: '',
-    privacy_policy_text: '',
+    privacy_policy_title: '',
+    privacy_policy_content: '',
     privacy_policy_url: '',
-    terms_text: '',
-    terms_url: ''
+    privacy_policy_text: '',
+    terms_title: '',
+    terms_content: '',
+    terms_url: '',
+    terms_text: ''
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [activeContent, setActiveContent] = useState(null);
 
   useEffect(() => {
     const fetchLegalData = async () => {
@@ -42,6 +49,29 @@ const FooterLegal = () => {
     fetchLegalData();
   }, []);
 
+  const openPrivacyModal = (e) => {
+    e.preventDefault();
+    setActiveContent({
+      title: legalData.privacy_policy_title,
+      body: legalData.privacy_policy_content
+    });
+    setModalOpen(true);
+  };
+
+  const openTermsModal = (e) => {
+    e.preventDefault();
+    setActiveContent({
+      title: legalData.terms_title,
+      body: legalData.terms_content
+    });
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setActiveContent(null);
+  };
+
   if (loading) {
     return (
       <div className={styles.footerLegal}>
@@ -67,23 +97,28 @@ const FooterLegal = () => {
       <p className={styles.copyright}>{legalData.company_disclaimer}</p>
       <div className={styles.legalLinks}>
         <a 
-          href={legalData.privacy_policy_url} 
+          href="#"
+          onClick={openPrivacyModal} 
           className={styles.legalLink}
-          target="_blank"
-          rel="noopener noreferrer"
         >
-          {legalData.privacy_policy_text}
+          {legalData.privacy_policy_text || "Privacy Policy"}
         </a>
         <span className={styles.separator}>|</span>
         <a 
-          href={legalData.terms_url} 
+          href="#"
+          onClick={openTermsModal} 
           className={styles.legalLink}
-          target="_blank"
-          rel="noopener noreferrer"
         >
-          {legalData.terms_text}
+          {legalData.terms_text || "Terms & Conditions"}
         </a>
       </div>
+
+      {/* Legal Content Modal */}
+      <LegalModal 
+        isOpen={modalOpen}
+        onClose={closeModal}
+        content={activeContent}
+      />
     </div>
   );
 };
