@@ -1,49 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Footer.module.css';
 import { useContactModal } from '@/context/ContactModalContext';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+import { useFooterCTA } from '@/lib/swr-hooks';
 
 const FooterCTA = () => {
-  const [ctaData, setCtaData] = useState({
-    title: '',
-    description: '',
-    button_text: '',
-    contact_person: '',
-    position: '',
-    phone: ''
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Use SWR hook for footer CTA data
+  const { ctaData, isLoading, isError, error } = useFooterCTA();
   const { openModal } = useContactModal();
 
+  // Log the fetched data when available - moved before conditionals
   useEffect(() => {
-    const fetchCTAData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${API_BASE_URL}/api/footer-cta/`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        setCtaData(data);
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching CTA data:', err);
-        setError('Failed to load call-to-action content');
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (ctaData) {
+      console.log('Footer CTA data fetched:', ctaData);
+    }
+  }, [ctaData]);
 
-    fetchCTAData();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={styles.footerCTA}>
         <div className={styles.loadingState}>
@@ -53,14 +27,19 @@ const FooterCTA = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className={styles.footerCTA}>
         <div className={styles.errorState}>
-          <p>{error}</p>
+          <p>{error?.message || 'Failed to load call-to-action content'}</p>
         </div>
       </div>
     );
+  }
+
+  // Return null if no data is available
+  if (!ctaData) {
+    return null;
   }
 
   return (

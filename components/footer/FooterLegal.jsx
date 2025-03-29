@@ -3,51 +3,20 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Footer.module.css';
 import LegalModal from '../legal/LegalModal';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+import { useLegalSection } from '@/lib/swr-hooks';
 
 const FooterLegal = () => {
-  const [legalData, setLegalData] = useState({
-    company_disclaimer: '',
-    privacy_policy_title: '',
-    privacy_policy_content: '',
-    privacy_policy_url: '',
-    privacy_policy_text: '',
-    terms_title: '',
-    terms_content: '',
-    terms_url: '',
-    terms_text: ''
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // Use SWR hook for legal data
+  const { legalData, isLoading, isError, error } = useLegalSection();
   const [modalOpen, setModalOpen] = useState(false);
   const [activeContent, setActiveContent] = useState(null);
 
+  // Log the fetched data when available - moved before conditionals
   useEffect(() => {
-    const fetchLegalData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${API_BASE_URL}/api/legal-section/`, {
-          headers: { Accept: 'application/json' },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch legal data: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setLegalData(data);
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching legal data:', err);
-        setError('Failed to load legal information');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLegalData();
-  }, []);
+    if (legalData) {
+      console.log('Legal section data fetched:', legalData);
+    }
+  }, [legalData]);
 
   const openPrivacyModal = (e) => {
     e.preventDefault();
@@ -72,7 +41,7 @@ const FooterLegal = () => {
     setActiveContent(null);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={styles.footerLegal}>
         <div className={styles.loadingState}>
@@ -82,14 +51,19 @@ const FooterLegal = () => {
     );
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className={styles.footerLegal}>
         <div className={styles.errorState}>
-          <p>{error}</p>
+          <p>{error?.message || "Failed to load legal information"}</p>
         </div>
       </div>
     );
+  }
+
+  // Return null if no data is available
+  if (!legalData) {
+    return null;
   }
 
   return (
