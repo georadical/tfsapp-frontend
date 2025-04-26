@@ -75,7 +75,8 @@ const FooterLegal = () => {
           onClick={openPrivacyModal} 
           className={styles.legalLink}
         >
-          {legalData.privacy_policy_text || "Privacy Policy"}
+          {/* Using dynamic privacy_policy_title from API instead of text property */}
+          {legalData.privacy_policy_title || "Privacy Policy"}
         </a>
         <span className={styles.separator}>|</span>
         <a 
@@ -83,7 +84,8 @@ const FooterLegal = () => {
           onClick={openTermsModal} 
           className={styles.legalLink}
         >
-          {legalData.terms_text || "Terms & Conditions"}
+          {/* Using dynamic terms_title from API instead of text property */}
+          {legalData.terms_title || "Terms & Conditions"}
         </a>
       </div>
 
