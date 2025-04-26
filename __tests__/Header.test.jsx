@@ -1,5 +1,6 @@
 import { render, screen, act } from '@testing-library/react'
 import Header from '../components/Header'
+import { API_BASE } from '../lib/api'
 
 // Mock the ContactModalContext
 jest.mock('../context/ContactModalContext', () => ({
@@ -91,6 +92,6 @@ describe('Header Component', () => {
       render(<Header menuItems={[]} />)
     })
     
-    expect(fetch).toHaveBeenCalledWith('http://127.0.0.1:8000/api/site-config/', expect.anything())
+    expect(fetch).toHaveBeenCalledWith(`${API_BASE}/site-config/`, expect.anything())
   })
 })

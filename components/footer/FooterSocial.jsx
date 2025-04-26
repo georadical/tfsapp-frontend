@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Footer.module.css';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
 const FooterSocial = () => {
   const [socialLinks, setSocialLinks] = useState([]);
@@ -14,7 +14,7 @@ const FooterSocial = () => {
     const fetchSocialMedia = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_BASE_URL}/api/social-media/`, {
+        const response = await fetch(`${API_BASE_URL}/social-media/`, {
           headers: { Accept: 'application/json' },
         });
 

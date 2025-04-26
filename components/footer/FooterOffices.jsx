@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Footer.module.css';
 import OtherLocationsButton from './OtherLocationsButton';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
 const FooterOffices = () => {
   const [officesData, setOfficesData] = useState({
@@ -21,14 +21,14 @@ const FooterOffices = () => {
         setLoading(true);
         
         // Fetch the section title
-        const sectionResponse = await fetch(`${API_BASE_URL}/api/location-section/`);
+        const sectionResponse = await fetch(`${API_BASE_URL}/location-section/`);
         if (!sectionResponse.ok) {
           throw new Error(`Error fetching section data: ${sectionResponse.status}`);
         }
         const sectionData = await sectionResponse.json();
         
         // Fetch all office locations
-        const locationsResponse = await fetch(`${API_BASE_URL}/api/locations/`);
+        const locationsResponse = await fetch(`${API_BASE_URL}/locations/`);
         if (!locationsResponse.ok) {
           throw new Error(`Error fetching locations data: ${locationsResponse.status}`);
         }

@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+
 const ContactModal = ({ isOpen, onClose }) => {
   // Form state
   const [formData, setFormData] = useState({
@@ -122,7 +124,7 @@ const ContactModal = ({ isOpen, onClose }) => {
     setApiError(null);
     
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/contact/", {
+      const response = await fetch(`${API_BASE_URL}/contact/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

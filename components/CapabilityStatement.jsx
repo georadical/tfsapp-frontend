@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useContactModal } from "@/context/ContactModalContext";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+
 const CapabilityStatement = () => {
   const [capabilityData, setCapabilityData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +15,7 @@ const CapabilityStatement = () => {
   useEffect(() => {
     const fetchCapabilityStatement = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/capability-statement/', {
+        const res = await fetch(`${API_BASE_URL}/capability-statement/`, {
           headers: {
             'Accept': 'application/json'
           }

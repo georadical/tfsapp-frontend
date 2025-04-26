@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+
 const FeatureSection = ({ title, description, features, image, imageAlt, isReversed }) => (
   <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 lg:gap-12 items-center py-12 lg:py-16`}>
     {/* Text Content */}
@@ -54,7 +56,7 @@ const DefaultFeatureList = () => {
   useEffect(() => {
     const fetchExpertise = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/expertise/', {
+        const res = await fetch(`${API_BASE_URL}/expertise/`, {
           headers: {
             'Accept': 'application/json'
           }

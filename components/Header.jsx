@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Menu from "./Menu";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+
 export default function Header({ menuItems, logo }) {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,7 +13,7 @@ export default function Header({ menuItems, logo }) {
   useEffect(() => {
     const fetchBackground = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/site-config/", {
+        const res = await fetch(`${API_BASE_URL}/site-config/`, {
           headers: {
             'Accept': 'application/json'
           }

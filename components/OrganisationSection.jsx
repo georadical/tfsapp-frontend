@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import OrganisationCarousel from './OrganisationCarousel';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
 export default function OrganisationSection() {
   const [sectionData, setSectionData] = useState(null);
@@ -15,7 +15,7 @@ export default function OrganisationSection() {
     const fetchData = async () => {
       try {
         // Fetch section title
-        const sectionResponse = await fetch(`${API_BASE_URL}/api/organisation-section/`);
+        const sectionResponse = await fetch(`${API_BASE_URL}/organisation-section/`);
         
         if (!sectionResponse.ok) {
           throw new Error(`Failed to fetch section data: ${sectionResponse.status}`);
@@ -24,7 +24,7 @@ export default function OrganisationSection() {
         setSectionData(sectionResult[0]);
 
         // Fetch organisations
-        const organisationsResponse = await fetch(`${API_BASE_URL}/api/organisation-logos/`);
+        const organisationsResponse = await fetch(`${API_BASE_URL}/organisation-logos/`);
         
         if (!organisationsResponse.ok) {
           throw new Error(`Failed to fetch organisation data: ${organisationsResponse.status}`);

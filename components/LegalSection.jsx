@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
 export default function LegalSection() {
   const [legalData, setLegalData] = useState(null);
@@ -20,7 +20,7 @@ export default function LegalSection() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/legal-section/`);
+        const response = await fetch(`${API_BASE_URL}/legal-section/`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch legal data: ${response.status}`);

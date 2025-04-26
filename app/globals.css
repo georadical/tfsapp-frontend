@@ -18,11 +18,11 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background-color: #E8ECF2; /* Slightly darker gray than previous */
   font-family: 'Open Sans', sans-serif;
-  background-color: #E8ECF2; /* Gris un poco más oscuro que el anterior */
 }
 
+/* Global styles applied to all elements */
 * {
-  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
 }

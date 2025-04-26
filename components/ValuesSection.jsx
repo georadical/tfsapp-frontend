@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import ValuesCard from "./ValuesCard";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+
 const ValuesSection = () => {
   const [values, setValues] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +13,7 @@ const ValuesSection = () => {
   useEffect(() => {
     const fetchValues = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/values/", {
+        const res = await fetch(`${API_BASE_URL}/values/`, {
           headers: {
             'Accept': 'application/json'
           }
