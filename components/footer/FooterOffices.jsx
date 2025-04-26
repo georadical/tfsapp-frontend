@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './Footer.module.css';
 import OtherLocationsButton from './OtherLocationsButton';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+// Remove trailing slash if present to avoid double-slash in URLs
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+const API_BASE_URL = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
 
 const FooterOffices = () => {
   const [officesData, setOfficesData] = useState({

@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+// Remove trailing slash if present to avoid double-slash in URLs
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+const API_BASE_URL = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
 
 const FeatureSection = ({ title, description, features, image, imageAlt, isReversed }) => (
   <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 lg:gap-12 items-center py-12 lg:py-16`}>
