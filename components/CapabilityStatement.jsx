@@ -8,6 +8,23 @@ import { useContactModal } from "@/context/ContactModalContext";
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 const API_BASE_URL = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
 
+// Helper function to ensure we always use https URLs for Railway
+const ensureHttpsUrl = (url) => {
+  if (!url) return '';
+  
+  // Check if this is a Railway URL
+  if (url.includes('tfsapp-production.up.railway.app')) {
+    // Extract the path after /uploads/
+    const uploadPathMatch = url.match(/\/uploads\/(.*?)$/);
+    if (uploadPathMatch && uploadPathMatch[1]) {
+      return `https://tfsapp-production.up.railway.app/uploads/${uploadPathMatch[1]}`;
+    }
+  }
+  
+  // For other URLs or if pattern matching fails, just replace protocol
+  return url.replace(/^http:\/\//i, 'https://');
+};
+
 const CapabilityStatement = () => {
   const [capabilityData, setCapabilityData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -92,7 +109,7 @@ const CapabilityStatement = () => {
           <div className="flex-1 w-full relative">
             <div className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-xl">
               <Image
-                src={capabilityData.image}
+                src={ensureHttpsUrl(capabilityData.image)}
                 alt={capabilityData.title}
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
