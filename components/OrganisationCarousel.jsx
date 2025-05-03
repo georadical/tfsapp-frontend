@@ -6,6 +6,23 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// Helper function to ensure we always use https URLs for Railway
+const ensureHttpsUrl = (url) => {
+  if (!url) return '';
+  
+  // Check if this is a Railway URL
+  if (url.includes('tfsapp-production.up.railway.app')) {
+    // Extract the path after /uploads/
+    const uploadPathMatch = url.match(/\/uploads\/(.*?)$/);
+    if (uploadPathMatch && uploadPathMatch[1]) {
+      return `https://tfsapp-production.up.railway.app/uploads/${uploadPathMatch[1]}`;
+    }
+  }
+  
+  // For other URLs or if pattern matching fails, just replace protocol
+  return url.replace(/^http:\/\//i, 'https://');
+};
+
 const OrganisationCarousel = ({ organisations }) => {
   const settings = {
     dots: true,
@@ -54,7 +71,7 @@ const OrganisationCarousel = ({ organisations }) => {
             >
               <div className="relative h-full w-full">
                 <Image
-                  src={org.organisation_logo}
+                  src={ensureHttpsUrl(org.organisation_logo)}
                   alt={org.organisation_name || 'Organization logo'}
                   fill
                   sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 200px"
