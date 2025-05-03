@@ -99,10 +99,10 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
   
   if (service.modal_image) {
     const fileName = service.modal_image.split('/uploads/').pop();
-    modalImage = `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${fileName}`;
+    modalImage = `https://tfsapp-production.up.railway.app/uploads/${fileName}`;
   } else if (service.image) {
     const fileName = service.image.split('/uploads/').pop();
-    modalImage = `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${fileName}`;
+    modalImage = `https://tfsapp-production.up.railway.app/uploads/${fileName}`;
   }
 
   return (

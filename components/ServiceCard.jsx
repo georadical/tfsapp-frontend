@@ -14,7 +14,7 @@ const ServiceCard = ({
     <div className="relative w-full h-[300px] sm:h-[350px]">
       <img 
         src={imageUrl ? 
-          `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${imageUrl.split('/uploads/').pop()}` : 
+          `https://tfsapp-production.up.railway.app/uploads/${imageUrl.split('/uploads/').pop()}` : 
           "/api/placeholder/400/300"} 
         alt={title}
         className="w-full h-full object-cover object-center"

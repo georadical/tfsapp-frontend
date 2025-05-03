@@ -55,7 +55,7 @@ export default function Hero() {
   let imageUrl = "/api/placeholder/800/600"; // Default fallback
   if (heroData?.image) {
     const fileName = heroData.image.split('/uploads/').pop();
-    imageUrl = `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${fileName}`;
+    imageUrl = `https://tfsapp-production.up.railway.app/uploads/${fileName}`;
   }
 
   return (
