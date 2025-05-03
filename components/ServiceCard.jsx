@@ -13,7 +13,9 @@ const ServiceCard = ({
   <div className="w-full sm:w-[360px] mx-auto overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
     <div className="relative w-full h-[300px] sm:h-[350px]">
       <img 
-        src={imageUrl || "/api/placeholder/400/300"} 
+        src={imageUrl ? 
+          `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${imageUrl.split('/uploads/').pop()}` : 
+          "/api/placeholder/400/300"} 
         alt={title}
         className="w-full h-full object-cover object-center"
         style={{

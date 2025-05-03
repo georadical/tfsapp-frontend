@@ -50,7 +50,13 @@ export default function Hero() {
   // Fallback data if API returns empty or missing fields
   const title = heroData?.title || "Precision Forestry Solutions";
   const subtitle = heroData?.subtitle || "Empowering sustainable forest management through advanced technology and expert services.";
-  const imageUrl = heroData?.image || "http://127.0.0.1:8000/uploads/hero_images/IMG_0381.jpeg";
+  
+  // Format the image URL properly to work with the configured remotePatterns
+  let imageUrl = "/api/placeholder/800/600"; // Default fallback
+  if (heroData?.image) {
+    const fileName = heroData.image.split('/uploads/').pop();
+    imageUrl = `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${fileName}`;
+  }
 
   return (
     <section className="w-full bg-white pt-48 pb-12">

@@ -95,7 +95,15 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
 
   // Determine modal image - use modal_image if available, fallback to regular image
   // Explicitly check for existence to avoid false negatives with empty strings
-  const modalImage = service.modal_image || service.image || "/api/placeholder/900/400";
+  let modalImage = "/api/placeholder/900/400";
+  
+  if (service.modal_image) {
+    const fileName = service.modal_image.split('/uploads/').pop();
+    modalImage = `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${fileName}`;
+  } else if (service.image) {
+    const fileName = service.image.split('/uploads/').pop();
+    modalImage = `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, '').replace(/\/api$/, '')}/uploads/${fileName}`;
+  }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 overflow-y-auto">

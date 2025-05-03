@@ -15,6 +15,12 @@ const nextConfig = {
         port: '8000',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'tfsapp-production.up.railway.app',
+        port: '',
+        pathname: '/uploads/**',
+      },
     ],
   },
 };
