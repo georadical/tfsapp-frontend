@@ -25,47 +25,77 @@ const ensureHttpsUrl = (url) => {
   return url.replace(/^http:\/\//i, 'https://');
 };
 
-const FeatureSection = ({ title, description, features, image, imageAlt, isReversed }) => (
-  <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 lg:gap-12 items-center py-12 lg:py-16`}>
-    {/* Text Content */}
-    <div className="flex-1 space-y-6">
-      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-        {title}
-      </h2>
+const FeatureSection = ({ title, description, features, image, imageAlt }) => {
+  // Dividir las características en dos columnas
+  const midpoint = Math.ceil(features.length / 2);
+  const firstHalf = features.slice(0, midpoint);
+  const secondHalf = features.slice(midpoint);
+
+  // Eliminar la frase "Our expertise includes:" del texto de descripción
+  const cleanDescription = description ? description.replace(/Our expertise includes:$/i, '').trim() : '';
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      {/* Celda 1: Título y descripción */}
       <div className="space-y-6">
+        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
+          {title}
+        </h2>
         <p className="text-gray-600 text-lg whitespace-pre-line">
-          {description}
+          {cleanDescription}
         </p>
       </div>
-      <ul className="space-y-4">
-        {features.map((feature, index) => (
-          <li 
-            key={index}
-            className="flex items-start gap-3 group"
-          >
-            <CheckCircleIcon className="w-6 h-6 text-primary flex-shrink-0 mt-1 transition-colors duration-300 group-hover:text-primary-dark" />
-            <span className="text-gray-600 transition-colors duration-300 group-hover:text-gray-900">
-              {feature}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
 
-    {/* Image */}
-    <div className="flex-1 w-full relative">
-      <div className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-xl">
-        <Image
-          src={ensureHttpsUrl(image)}
-          alt={imageAlt}
-          fill
-          className="object-cover transition-transform duration-700 hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
+      {/* Celda 2: Imagen */}
+      <div className="w-full">
+        <div className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-xl">
+          <Image
+            src={ensureHttpsUrl(image)}
+            alt={imageAlt}
+            fill
+            className="object-cover transition-transform duration-700 hover:scale-105"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+      </div>
+
+      {/* Celda 3: Primera mitad de las características */}
+      <div className="space-y-6">
+        <h3 className="text-xl font-semibold text-primary">Our expertise includes:</h3>
+        <ul className="space-y-4">
+          {firstHalf.map((feature, index) => (
+            <li 
+              key={index}
+              className="flex items-start gap-3 group"
+            >
+              <CheckCircleIcon className="w-6 h-6 text-primary flex-shrink-0 mt-1 transition-colors duration-300 group-hover:text-primary-dark" />
+              <span className="text-gray-600 transition-colors duration-300 group-hover:text-gray-900">
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Celda 4: Segunda mitad de las características */}
+      <div className="space-y-6">
+        <ul className="space-y-4">
+          {secondHalf.map((feature, index) => (
+            <li 
+              key={index}
+              className="flex items-start gap-3 group"
+            >
+              <CheckCircleIcon className="w-6 h-6 text-primary flex-shrink-0 mt-1 transition-colors duration-300 group-hover:text-primary-dark" />
+              <span className="text-gray-600 transition-colors duration-300 group-hover:text-gray-900">
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const DefaultFeatureList = () => {
   const [expertiseData, setExpertiseData] = useState(null);
@@ -129,7 +159,6 @@ const DefaultFeatureList = () => {
               features={expertiseData.expertise_items}
               image={expertiseData.image}
               imageAlt={expertiseData.title}
-              isReversed={false}
             />
           )
         )}
