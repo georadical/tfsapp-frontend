@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Image from 'next/image';
-import OrganisationSection from './OrganisationSection';
+// import OrganisationSection from './OrganisationSection';
 import { useContactModal } from '@/context/ContactModalContext';
 import { useHeroSection } from '@/lib/swr-hooks';
 import { API_BASE } from '@/lib/api';
@@ -82,8 +82,8 @@ export default function Hero() {
             </a>
           </div>
           
-          {/* Organisation Section */}
-          <OrganisationSection />
+          {/* Organisation Section - Deshabilitado temporalmente */}
+          {/* <OrganisationSection /> */}
         </div>
 
         {/* Image Section */}
