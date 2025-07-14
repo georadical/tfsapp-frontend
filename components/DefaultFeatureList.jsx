@@ -41,9 +41,10 @@ const FeatureSection = ({ title, description, features, image, imageAlt }) => {
         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
           {title}
         </h2>
-        <p className="text-gray-600 text-lg whitespace-pre-line">
+        <p className="text-gray-600 text-lg whitespace-pre-line text-justify">
           {cleanDescription}
         </p>
+        <h3 className="text-xl font-semibold text-primary">Our expertise includes:</h3>
       </div>
 
       {/* Celda 2: Imagen */}
@@ -61,7 +62,6 @@ const FeatureSection = ({ title, description, features, image, imageAlt }) => {
 
       {/* Celda 3: Primera mitad de las características */}
       <div className="space-y-6">
-        <h3 className="text-xl font-semibold text-primary">Our expertise includes:</h3>
         <ul className="space-y-4">
           {firstHalf.map((feature, index) => (
             <li 

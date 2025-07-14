@@ -94,11 +94,11 @@ export default function Hero() {
 
         {/* Image Section */}
         <div className="flex-1 w-full lg:max-w-xl">
-          <div className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-2xl">
+          <div className="aspect-[5/5.7] relative rounded-lg overflow-hidden shadow-2xl bg-black flex items-center justify-center">
             <img
               src={imageUrl}
               alt={heroData?.image_alt || "Forest management and technology"}
-              className="object-cover w-full h-full transition-transform duration-700 hover:scale-105"
+              className="object-contain w-full h-full transition-transform duration-700 hover:scale-105"
             />
           </div>
         </div>
