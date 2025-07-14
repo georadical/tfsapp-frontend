@@ -2,10 +2,11 @@
 
 import React, { useEffect } from "react";
 import Image from 'next/image';
-import OrganisationSection from './OrganisationSection';
+// import OrganisationSection from './OrganisationSection';
 import { useContactModal } from '@/context/ContactModalContext';
 import { useHeroSection } from '@/lib/swr-hooks';
 import { API_BASE } from '@/lib/api';
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 export default function Hero() {
   const { openModal } = useContactModal();
@@ -63,10 +64,15 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-4">
         {/* Text Content */}
         <div className="flex-1 max-w-2xl w-full lg:max-w-xl">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
-            {title}
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-4 space-y-2">
+            {title.split('.').filter(Boolean).map((part, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <CheckCircleIcon className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <span>{part.trim()}.</span>
+              </div>
+            ))}
           </h1>
-          <p className="text-gray-dark mb-6 text-sm sm:text-base" style={{ fontSize: "16px" }}>{subtitle}</p>
+          <p className="text-gray-dark mb-6 text-sm sm:text-base" style={{ fontSize: "16px", whiteSpace: "pre-wrap", textAlign: "justify" }}>{subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-4 sm:space-x-6 mt-6">
             <button
               onClick={openModal}
@@ -82,17 +88,17 @@ export default function Hero() {
             </a>
           </div>
           
-          {/* Organisation Section */}
-          <OrganisationSection />
+          {/* Organisation Section - Deshabilitado temporalmente */}
+          {/* <OrganisationSection /> */}
         </div>
 
         {/* Image Section */}
         <div className="flex-1 w-full lg:max-w-xl">
-          <div className="aspect-[4/3] relative rounded-lg overflow-hidden shadow-2xl">
+          <div className="aspect-[5/5.7] relative rounded-lg overflow-hidden shadow-2xl bg-black flex items-center justify-center">
             <img
               src={imageUrl}
               alt={heroData?.image_alt || "Forest management and technology"}
-              className="object-cover w-full h-full transition-transform duration-700 hover:scale-105"
+              className="object-contain w-full h-full transition-transform duration-700 hover:scale-105"
             />
           </div>
         </div>

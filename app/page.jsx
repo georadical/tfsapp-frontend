@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Hero from "../components/Hero";
 import Services from "../components/Services";
 import DefaultFeatureList from "../components/DefaultFeatureList";
-import CapabilityStatement from "../components/CapabilityStatement";
+// import CapabilityStatement from "../components/CapabilityStatement";
 import ValuesSection from "../components/ValuesSection";
 
 const Header = dynamic(() => import("../components/Header"), { ssr: false });
@@ -30,7 +30,7 @@ export default function Home() {
           <DefaultFeatureList />
         </div>
         <div id="statements">
-          <CapabilityStatement />
+          {/* <CapabilityStatement /> */}
           <ValuesSection />
         </div>
         <div id="contact">

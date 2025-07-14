@@ -14,7 +14,7 @@ export default function Menu() {
     { label: 'Home', id: 'home' },
     { label: 'Our Services', id: 'services' },
     { label: 'Our Expertise', id: 'expertise' },
-    { label: 'Statements', id: 'statements' },
+    { label: 'Values', id: 'values' },
     { label: 'Contact', id: 'contact' }
   ];
 
